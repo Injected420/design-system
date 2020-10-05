@@ -7,12 +7,10 @@ const svgo = new SVGO({ plugins: [{ removeXMLNS: true }] })
 
 const regex = />/
 const componentTemplate = (svg, componentName, core) => `
-import React from 'react'
-import Icon, { IconProps } from ${
-  core ? "'../'" : "'@pluralsight/ps-design-system-icon'"
-}
+import React, { HTMLAttributes } from 'react'
+import Icon from ${core ? "'..'" : "'@pluralsight/ps-design-system-icon'"}
 import * as vars from '../../vars'
-import { RefForwardingComponent } from '@pluralsight/ps-design-system-util'
+import { RefForwardingComponent, ValueOf } from '@pluralsight/ps-design-system-util'
 
 
 interface ${componentName}Statics {
@@ -20,10 +18,15 @@ interface ${componentName}Statics {
   colors: typeof vars.colors
 }
 
-interface ${componentName}Component
-  extends RefForwardingComponent<IconProps, HTMLDivElement, ${componentName}Statics> {}
+interface ${componentName}Props extends HTMLAttributes<HTMLDivElement> {
+  sizes: ValueOf<typeof vars.sizes>
+  colors: ValueOf<typeof vars.colors>
+}
 
-const ${componentName} = React.forwardRef<HTMLDivElement, IconProps>(
+interface ${componentName}Component
+  extends RefForwardingComponent<${componentName}Props, HTMLDivElement, ${componentName}Statics> {}
+
+const ${componentName} = React.forwardRef<HTMLDivElement, ${componentName}Props>(
   ({ 'aria-label': ariaLabel, ...props }, ref) => { 
     return (
       <Icon {...props} ref={ref}>
