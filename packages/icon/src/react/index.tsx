@@ -1,7 +1,6 @@
 import { css } from 'glamor'
 import React, { HTMLAttributes } from 'react'
 
-import filterReactProps from '@pluralsight/ps-design-system-filter-react-props'
 import {
   RefForwardingComponent,
   ValueOf
@@ -33,12 +32,8 @@ interface IconComponent
   extends RefForwardingComponent<IconProps, HTMLDivElement, IconStatics> {}
 
 const Icon = React.forwardRef<HTMLDivElement, IconProps>(
-  ({ children, color, size, ...props }, ref) => (
-    <div
-      {...style.icon({ color, size })}
-      {...filterReactProps(props)}
-      ref={ref}
-    >
+  ({ children, color, size, ...rest }, ref) => (
+    <div {...style.icon({ color, size })} {...rest} ref={ref}>
       {children}
     </div>
   )
