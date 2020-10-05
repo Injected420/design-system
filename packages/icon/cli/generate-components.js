@@ -19,8 +19,8 @@ interface ${componentName}Statics {
 }
 
 interface ${componentName}Props extends HTMLAttributes<HTMLDivElement> {
-  sizes: ValueOf<typeof vars.sizes>
-  colors: ValueOf<typeof vars.colors>
+  size?: ValueOf<typeof vars.sizes>
+  color?: ValueOf<typeof vars.colors>
 }
 
 interface ${componentName}Component
